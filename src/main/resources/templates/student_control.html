@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Control Page</title>
+    <!--  Add bootstrap resources through the thymeleaf -->
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css} "/>
+    <script defer th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script defer th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+    <script defer th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<nav th:replace="navbar :: navigation"></nav>
+
+<div class="container">
+    <div class="card mt-4 mb-3 border-primary shadow-sm">
+        <h4 class="bg-light text-primary card-header">Student Control</h4>
+    </div>
+
+    <div th:if="${students.isEmpty()}">
+        No Student Available
+    </div>
+    <div th:unless="${students.isEmpty()}">
+        <table class="table table-striped">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Course</th>
+                <th></th>
+            </tr>
+            <tr th:each="student : ${students}">
+                <td><span th:text="${student.id}"></span></td>
+                <td><span th:text="${student.name}"></span></td>
+                <td><span th:text="${student.email}"></span></td>
+                <td><span th:text="${student.course}"></span></td>
+                <td>
+                    <a th:href="@{/student/find/{id} (id = ${student.id})}" class="btn btn-info">Details</a>
+                </td>
+
+            </tr>
+        </table>
+    </div>
+
+</div>
+
+
+<div th:insert="footer :: footer"></div>
+</body>
+</html>
